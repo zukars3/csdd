@@ -1,68 +1,67 @@
 <template>
   <div id="app">
     <div class="container">
-      <HelloWorld msg="Hello" />
       <datetime v-model="date" type="datetime" use12hour="false" value-zone="local"></datetime>
       {{ date.substring(0, 19) }}
       <div class="row">
         <div class="col-md-1 line-1">
-          <ul>
-            <li v-for="row in line(1)" :key="row.id">{{ row.rn }}</li>
+          <ul class="table-column">
+            <li class="table-data" v-for="row in line(1)" :key="row.id">{{ row.rn }}</li>
           </ul>
         </div>
         <div class="col-md-1 line-2">
-          <ul>
-            <li v-for="row in line(2)" :key="row.id">{{ row.rn }}</li>
+          <ul class="table-column">
+            <li class="table-data" v-for="row in line(2)" :key="row.id">{{ row.rn }}</li>
           </ul>
         </div>
         <div class="col-md-1 line-3">
-          <ul>
-            <li v-for="row in line(3)" :key="row.id">{{ row.rn }}</li>
+          <ul class="table-column">
+            <li class="table-data" v-for="row in line(3)" :key="row.id">{{ row.rn }}</li>
           </ul>
         </div>
         <div class="col-md-1 line-4">
-          <ul>
-            <li v-for="row in line(4)" :key="row.id">{{ row.rn }}</li>
+          <ul class="table-column">
+            <li class="table-data" v-for="row in line(4)" :key="row.id">{{ row.rn }}</li>
           </ul>
         </div>
         <div class="col-md-1 line-5">
-          <ul>
-            <li v-for="row in line(5)" :key="row.id">{{ row.rn }}</li>
+          <ul class="table-column">
+            <li class="table-data" v-for="row in line(5)" :key="row.id">{{ row.rn }}</li>
           </ul>
         </div>
         <div class="col-md-1 line-6">
-          <ul>
-            <li v-for="row in line(6)" :key="row.id">{{ row.rn }}</li>
+          <ul class="table-column">
+            <li class="table-data" v-for="row in line(6)" :key="row.id">{{ row.rn }}</li>
           </ul>
         </div>
         <div class="col-md-1 line-7">
-          <ul>
-            <li v-for="row in line(7)" :key="row.id">{{ row.rn }}</li>
+          <ul class="table-column">
+            <li class="table-data" v-for="row in line(7)" :key="row.id">{{ row.rn }}</li>
           </ul>
         </div>
         <div class="col-md-1 line-8">
-          <ul>
-            <li v-for="row in line(8)" :key="row.id">{{ row.rn }}</li>
+          <ul class="table-column">
+            <li class="table-data" v-for="row in line(8)" :key="row.id">{{ row.rn }}</li>
           </ul>
         </div>
         <div class="col-md-1 line-9">
-          <ul>
-            <li v-for="row in line(9)" :key="row.id">{{ row.rn }}</li>
+          <ul class="table-column">
+            <li class="table-data" v-for="row in line(9)" :key="row.id">{{ row.rn }}</li>
           </ul>
         </div>
         <div class="col-md-1 line-10">
-          <ul>
-            <li v-for="row in line(10)" :key="row.id">{{ row.rn }}</li>
+          <ul class="table-column">
+            <li class="table-data" v-for="row in line(10)" :key="row.id">{{ row.rn }}</li>
           </ul>
         </div>
         <div class="col-md-1 line-11">
-          <ul>
-            <li v-for="row in line(11)" :key="row.id">{{ row.rn }}</li>
+          <ul class="table-column">
+            <li class="table-data" v-for="row in line(11)" :key="row.id">{{ row.rn }}</li>
           </ul>
         </div>
         <div class="col-md-1 line-12">
-          <ul>
-            <li v-for="row in line(12)" :key="row.id">{{ row.rn }}</li>
+          <ul class="table-column">
+            <li class="table-data" v-for="row in line(12)" :key="row.id">{{ row.rn }}</li>
           </ul>
         </div>
       </div>
@@ -91,25 +90,23 @@
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
 import json from "./json/db.json";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Datetime } from "vue-datetime";
 // You need a specific loader for CSS files
 import "vue-datetime/dist/vue-datetime.css";
-import moment from 'moment';
+import moment from "moment";
 
 export default {
   name: "App",
   components: {
-    HelloWorld,
     Datetime
   },
   data() {
     return {
       myJson: json,
-      date: ""
+      date: "2020-06-16T10:07:00 "
     };
   },
   methods: {
@@ -120,16 +117,35 @@ export default {
       });
     },
     filter(date) {
-      return this.myJson["items"].filter(function(row) {
-        //var datetime = new Date(date);
-        var datetime = moment(date).format();
-        console.log(datetime);
-        return (row.datums >= datetime);
-      });
-    },
+      return this.myJson["items"]
+        .filter(function(row) {
+          var datetime = moment(date).format();
+          console.log(datetime);
+          return datetime >= row.datums;
+        })
+        .filter(function(row) {
+          var datetime = moment(date).format();
+          console.log(datetime);
+          return datetime <= row.s_datums;
+        });
+    }
   }
 };
 </script>
 
 <style>
+.table-column {
+  border: 1px solid;
+  padding-right: 8px;
+  padding-left: 20px;
+  display: table-row;
+}
+
+.table-data {
+  list-style-type: none;
+  padding-right: 10px;
+  padding-left: 10px;
+
+  border: 1px solid;
+}
 </style>
