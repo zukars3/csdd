@@ -1,10 +1,18 @@
-import Vue from 'vue'
-import App from './App.vue'
-import 'bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import Vue from "vue";
+import App from "./App.vue";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
 
-Vue.config.productionTip = false
+import { BootstrapVue } from "bootstrap-vue";
+import vuetify from "./plugins/vuetify";
+import Notifications from "vue-notification";
+
+Vue.config.productionTip = false;
+
+Vue.use(BootstrapVue);
+Vue.use(Notifications);
 
 new Vue({
-  render: h => h(App),
-}).$mount('#app')
+  vuetify,
+  render: (h) => h(App),
+}).$mount("#app");
